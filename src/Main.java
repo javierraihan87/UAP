@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-// Model class for Taxi Booking
+//Class Taxi Booking
 class TaxiBooking {
     private int id;
     private String customerName;
@@ -59,7 +59,7 @@ class TaxiBooking {
     }
 }
 
-// Main GUI application
+// Main GUI 
 public class Main {
 
     private JFrame frame;
