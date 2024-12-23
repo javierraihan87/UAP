@@ -79,6 +79,6 @@ Fitur tambahan yang dapat ditambahkan di masa depan:
 ---
 
 ## Kontributor
-- Nama: [Masukkan Nama Anda]
-- Kontak: [Masukkan Email Anda]
+- Nama: Javier Raihan, Deca Finandi Ananda
+- NIM: 202310370311308, 202310370311380
 
