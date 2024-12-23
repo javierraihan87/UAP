@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,7 +64,8 @@ public class Main {
 
     private JFrame frame;
     private JTextField customerNameField, destinationField, distanceField;
-    private DefaultListModel<String> bookingListModel;
+    private JTable bookingTable;
+    private DefaultTableModel tableModel;
     private ArrayList<TaxiBooking> bookings;
     private int currentId;
 
@@ -75,10 +77,11 @@ public class Main {
 
     private void initialize() {
         frame = new JFrame("Booking Taxi");
-        frame.setBounds(100, 100, 600, 400);
+        frame.setBounds(100, 100, 800, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
+        // Input Panel
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(4, 2));
 
@@ -110,18 +113,22 @@ public class Main {
 
         frame.add(inputPanel, BorderLayout.NORTH);
 
-        bookingListModel = new DefaultListModel<>();
-        JList<String> bookingList = new JList<>(bookingListModel);
-        JScrollPane scrollPane = new JScrollPane(bookingList);
+        // Table Panel
+        String[] columnNames = {"ID", "Nama", "Destinasi", "Jarak (km)", "Biaya ($)"};
+        tableModel = new DefaultTableModel(columnNames, 0);
+        bookingTable = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(bookingTable);
+
         frame.add(scrollPane, BorderLayout.CENTER);
 
+        // Action Panel
         JPanel actionPanel = new JPanel();
 
         JButton deleteButton = new JButton("Hapus");
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                deleteBooking(bookingList.getSelectedIndex());
+                deleteBooking(bookingTable.getSelectedRow());
             }
         });
 
@@ -129,7 +136,7 @@ public class Main {
         updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                updateBooking(bookingList.getSelectedIndex());
+                updateBooking(bookingTable.getSelectedRow());
             }
         });
 
@@ -152,7 +159,7 @@ public class Main {
 
             TaxiBooking booking = new TaxiBooking(currentId++, customerName, destination, distance);
             bookings.add(booking);
-            bookingListModel.addElement("Booking ID: " + booking.getId() + ", Name: " + booking.getCustomerName() + ", Fare: $" + booking.getFare());
+            tableModel.addRow(new Object[]{booking.getId(), booking.getCustomerName(), booking.getDestination(), booking.getDistance(), booking.getFare()});
 
             clearFields();
         } catch (NumberFormatException e) {
@@ -162,18 +169,18 @@ public class Main {
         }
     }
 
-    private void deleteBooking(int index) {
-        if (index >= 0) {
-            bookings.remove(index);
-            bookingListModel.remove(index);
+    private void deleteBooking(int rowIndex) {
+        if (rowIndex >= 0) {
+            bookings.remove(rowIndex);
+            tableModel.removeRow(rowIndex);
         } else {
             JOptionPane.showMessageDialog(frame, "Pilih yang ingin dihapus.", "Selection Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void updateBooking(int index) {
-        if (index >= 0) {
-            TaxiBooking booking = bookings.get(index);
+    private void updateBooking(int rowIndex) {
+        if (rowIndex >= 0) {
+            TaxiBooking booking = bookings.get(rowIndex);
             String customerName = JOptionPane.showInputDialog(frame, "Nama:", booking.getCustomerName());
             String destination = JOptionPane.showInputDialog(frame, "Destinasi:", booking.getDestination());
             String distanceStr = JOptionPane.showInputDialog(frame, "Jarak:", booking.getDistance());
@@ -189,7 +196,10 @@ public class Main {
                 booking.setDestination(destination);
                 booking.setDistance(distance);
 
-                bookingListModel.set(index, "Booking ID: " + booking.getId() + ", Nama: " + booking.getCustomerName() + ", Biaya: $" + booking.getFare());
+                tableModel.setValueAt(booking.getCustomerName(), rowIndex, 1);
+                tableModel.setValueAt(booking.getDestination(), rowIndex, 2);
+                tableModel.setValueAt(booking.getDistance(), rowIndex, 3);
+                tableModel.setValueAt(booking.getFare(), rowIndex, 4);
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(frame, "Distance must be a valid number.", "Input Error", JOptionPane.ERROR_MESSAGE);
             } catch (IllegalArgumentException e) {
