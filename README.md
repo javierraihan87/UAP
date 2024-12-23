@@ -1,7 +1,7 @@
 # Taxi Booking Management System
 
 ## Deskripsi
-Aplikasi "Taxi Booking Management System" adalah program berbasis GUI (Graphical User Interface) yang dibuat menggunakan Java Swing. Aplikasi ini memungkinkan pengguna untuk:
+Aplikasi "Booking Taxi" adalah program berbasis GUI (Graphical User Interface) yang dibuat menggunakan Java Swing. Aplikasi ini memungkinkan pengguna untuk:
 
 - Menambahkan pemesanan taksi baru.
 - Memperbarui data pemesanan yang ada.
@@ -39,19 +39,19 @@ Aplikasi ini juga dilengkapi dengan fitur Exception Handling untuk menangani inp
 ## Cara Menggunakan
 
 1. **Menjalankan Aplikasi**:
-   - Jalankan file `TaxiBookingApp` sebagai program utama.
+   - Jalankan file `Booking Taxi` sebagai program utama.
 
 2. **Menambahkan Pemesanan**:
    - Isi nama pelanggan, tujuan, dan jarak perjalanan di formulir input.
-   - Klik tombol "Add Booking" untuk menyimpan pemesanan.
+   - Klik tombol "Add" untuk menyimpan pemesanan.
 
 3. **Menghapus Pemesanan**:
    - Pilih pemesanan dari daftar.
-   - Klik tombol "Delete Booking".
+   - Klik tombol "Hapus".
 
 4. **Memperbarui Pemesanan**:
    - Pilih pemesanan dari daftar.
-   - Klik tombol "Update Booking" dan masukkan data baru.
+   - Klik tombol "Update" dan masukkan data baru.
 
 ---
 
